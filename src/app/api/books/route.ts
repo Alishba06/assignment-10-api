@@ -6,7 +6,6 @@ type Book = {
   image: string;
 };
 
-
 let books: Book[] = [
   {
     id: 1,
@@ -52,6 +51,7 @@ let books: Book[] = [
   },
 ];
 
+
 export async function GET() {
   return new Response(JSON.stringify(books), {
     status: 200,
@@ -59,10 +59,10 @@ export async function GET() {
   });
 }
 
-export async function POST(request: { json: () => Promise<{ title: string; author: string; image: string }> }) {
+
+export async function POST(request: Request) {
   const { title, author, image } = await request.json();
 
-  
   if (!title || !author || !image) {
     return new Response(JSON.stringify({ error: "All fields are required!" }), {
       status: 400,
@@ -78,10 +78,9 @@ export async function POST(request: { json: () => Promise<{ title: string; autho
 }
 
 
-export async function PUT(request: { json: () => Promise<{ id: number; title: string; author: string; image: string }> }) {
+export async function PUT(request: Request) {
   const { id, title, author, image } = await request.json();
 
-  
   if (!id || !title || !author || !image) {
     return new Response(JSON.stringify({ error: "All fields are required!" }), {
       status: 400,
@@ -103,10 +102,9 @@ export async function PUT(request: { json: () => Promise<{ id: number; title: st
 }
 
 
-export async function DELETE(request: { json: () => Promise<{ id: number }> }) {
+export async function DELETE(request: Request) {
   const { id } = await request.json();
 
-  
   if (!id) {
     return new Response(JSON.stringify({ error: "ID is required!" }), {
       status: 400,
